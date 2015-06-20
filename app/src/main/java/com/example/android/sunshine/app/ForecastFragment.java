@@ -55,7 +55,7 @@ public class ForecastFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
 
-        mForecastAdapter = new ArrayAdapter<String>(getActivity(),
+        mForecastAdapter = new ArrayAdapter<>(getActivity(),
                 R.layout.list_item_forecast, R.id.list_item_forecast_textview, new ArrayList<String>());
 
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
@@ -161,7 +161,7 @@ public class ForecastFragment extends Fragment {
                     // buffer for debugging.
                     buffer.append(line + "\n");
                 }
-                ;
+
                 if (buffer.length() == 0) {
                     // Stream was empty.  No point in parsing.
                     return null;
@@ -223,9 +223,9 @@ public class ForecastFragment extends Fragment {
         private String formatHighLows(double high, double low) {
             // For presentation, assume the user doesn't care about tenths of a degree.
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String tempUnit = sharedPref.getString(getString(R.string.pref_temperature_key),
-                    getString(R.string.pref_temperature_default));
-            if (tempUnit.equals(getString(R.string.imperial_string))) {
+            String tempUnit = sharedPref.getString(getString(R.string.pref_units_key),
+                    getString(R.string.pref_units_metric));
+            if (tempUnit.equals(getString(R.string.pref_units_imperial))) {
                 high = high * (9 / 5) + 32;
                 low = low * (9 / 5) + 32;
             }
