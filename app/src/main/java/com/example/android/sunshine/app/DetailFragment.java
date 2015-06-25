@@ -35,10 +35,12 @@ public class DetailFragment extends Fragment {
 
         Intent mIntent = getActivity().getIntent();
 
-        if(mIntent != null && mIntent.hasExtra(Intent.EXTRA_TEXT)){
-            mForecastStr = mIntent.getStringExtra(Intent.EXTRA_TEXT);
+        if(mIntent != null)
+            mForecastStr =mIntent.getDataString();
+
+        if(mForecastStr!=null)
             detailText.setText(mForecastStr);
-        }
+
         return rootView;
     }
 
