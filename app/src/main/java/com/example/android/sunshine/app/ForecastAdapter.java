@@ -14,6 +14,8 @@ import android.widget.TextView;
  */
 public class ForecastAdapter extends CursorAdapter {
 
+    private final int VIEW_TYPE_TODAY = 0;
+    private final int VIEW_TYPE_FUTURE = 1;
 
 
     public ForecastAdapter(Context context, Cursor c, int flags) {
@@ -49,14 +51,31 @@ public class ForecastAdapter extends CursorAdapter {
                 " - " + highAndLow;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return (position == 0) ? VIEW_TYPE_TODAY : VIEW_TYPE_FUTURE;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
     /*
-        Remember that these views are reused as needed.
-     */
+                Remember that these views are reused as needed.
+             */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_forecast, parent, false);
 
-        return view;
+        int viewType = getItemViewType(cursor.getPosition());
+        int layoutId = -1;
+
+        if (viewType == VIEW_TYPE_TODAY)
+            layoutId = R.layout.list_item_forecast_today;
+        else if (viewType == VIEW_TYPE_FUTURE)
+            layoutId = R.layout.list_item_forecast;
+        return LayoutInflater.from(context).inflate(layoutId, parent, false);
+
     }
 
     /*
@@ -74,11 +93,11 @@ public class ForecastAdapter extends CursorAdapter {
         iconView.setImageResource(R.drawable.ic_launcher);
 
         String date = cursor.getString(ForecastFragment.COL_WEATHER_DATE);
-        TextView dateView = (TextView)view.findViewById(R.id.list_item_date_textview);
+        TextView dateView = (TextView) view.findViewById(R.id.list_item_date_textview);
         dateView.setText(Utility.getFriendlyDayString(mContext, Long.parseLong(date)));
 
         String description = cursor.getString(ForecastFragment.COL_WEATHER_DESC);
-        TextView descriptionView = (TextView)view.findViewById(R.id.list_item_forecast_textview);
+        TextView descriptionView = (TextView) view.findViewById(R.id.list_item_forecast_textview);
         descriptionView.setText(description);
 
         // Read user preference for metric or imperial temperature units
@@ -90,7 +109,7 @@ public class ForecastAdapter extends CursorAdapter {
         highTempView.setText(Utility.formatTemperature(high, isMetric));
 
         double low = cursor.getDouble(ForecastFragment.COL_WEATHER_MIN_TEMP);
-        TextView lowTempView = (TextView)view.findViewById(R.id.list_item_low_textview);
+        TextView lowTempView = (TextView) view.findViewById(R.id.list_item_low_textview);
         lowTempView.setText(Utility.formatTemperature(low, isMetric));
     }
 }
