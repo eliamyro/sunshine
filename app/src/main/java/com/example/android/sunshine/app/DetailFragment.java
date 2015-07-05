@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
 
-import org.w3c.dom.Text;
 
 /**
  * Created by Elias Myronidis on 10/6/2015.
@@ -143,7 +142,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             int weatherId = data.getInt(COL_WEATHER_CONDITION_ID);
 
             // Use placeholder image.
-            mIconView.setImageResource(R.drawable.ic_launcher);
+            mIconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
 
             // Read date from cursor and update views for day of week and date
             long day = data.getLong(COL_WEATHER_DATE);

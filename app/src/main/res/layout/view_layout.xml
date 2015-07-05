@@ -8,7 +8,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Today, June 24"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <LinearLayout
@@ -25,14 +24,12 @@
                 android:id="@+id/temperature_high"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="21"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/temperature_low"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="8"
                 android:layout_below="@+id/temperature_high"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </RelativeLayout>
@@ -44,15 +41,13 @@
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher"/>
+                android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/image"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Cloudy"/>
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
         </RelativeLayout>
     </LinearLayout>
 
