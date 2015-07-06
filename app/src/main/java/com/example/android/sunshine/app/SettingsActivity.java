@@ -1,5 +1,8 @@
 package com.example.android.sunshine.app;
 
+import android.annotation.TargetApi;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -24,9 +27,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
      * as a master/detail two-pane view on tablets. When true, a single pane is
      * shown on tablets.
      */
-   // private static final boolean ALWAYS_SIMPLE_PREFS = false;
-
-
+    // private static final boolean ALWAYS_SIMPLE_PREFS = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,5 +75,11 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             preference.setSummary(stringValue);
         }
         return true;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public Intent getParentActivityIntent() {
+        return super.getParentActivityIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 }
