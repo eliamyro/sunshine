@@ -127,7 +127,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Intent mIntent = getActivity().getIntent();
-        if (mIntent == null)
+        if (mIntent == null || mIntent.getData() == null)
             return null;
 
         return new CursorLoader(getActivity(), mIntent.getData(), DETAIL_COLUMNS, null, null, null);

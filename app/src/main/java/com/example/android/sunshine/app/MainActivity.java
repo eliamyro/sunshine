@@ -11,18 +11,27 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     private String mLocation;
-    public final String FORECASTFRAGMENT_TAG = "FFTAG";
+    private static final String DETAILFRAGMENT_TAG = "DFTAG";
+    private boolean mTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(savedInstanceState==null){
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment, new ForecastFragment(), FORECASTFRAGMENT_TAG).commit();
-        }
         mLocation = Utility.getPreferredLocation(this);
+
+        if (findViewById(R.id.weather_detail_container) != null) {
+            mTwoPane = true;
+
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.weather_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
+                        .commit();
+            } else {
+                mTwoPane = false;
+            }
+        }
     }
 
 
@@ -45,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
             return true;
-        }else if(id == R.id.action_show_in_map){
+        } else if (id == R.id.action_show_in_map) {
             openPreferredLocationInMap();
         }
 
@@ -53,16 +62,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void openPreferredLocationInMap(){
+    private void openPreferredLocationInMap() {
 
         String location = Utility.getPreferredLocation(this);
         Uri geolocation = Uri.parse("geo:0,0?").buildUpon()
                 .appendQueryParameter("q", location).build();
         Intent mapIntent = new Intent(Intent.ACTION_VIEW);
         mapIntent.setData(geolocation);
-        if(mapIntent.resolveActivity(getPackageManager())!=null)
+        if (mapIntent.resolveActivity(getPackageManager()) != null)
             startActivity(mapIntent);
-
 
 
     }
@@ -72,11 +80,11 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         String location = Utility.getPreferredLocation(this);
-        if(location!=null &&  !location.equals(mLocation)){
-            ForecastFragment forecastFragment = (ForecastFragment)getSupportFragmentManager().findFragmentByTag(FORECASTFRAGMENT_TAG);
-            if(forecastFragment!=null)
+        if (location != null && !location.equals(mLocation)) {
+            ForecastFragment forecastFragment = (ForecastFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
+            if (forecastFragment != null)
                 forecastFragment.onLocationChanged();
-            mLocation =location;
+            mLocation = location;
         }
     }
 }
