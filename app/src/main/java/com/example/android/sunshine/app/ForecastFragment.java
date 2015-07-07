@@ -61,6 +61,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     static final int COL_COORD_LONG = 8;
     private int mPosition;
     private ListView mListView;
+    private boolean mUseTodayLayout;
 
 
     /**
@@ -101,6 +102,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         // However, we cannot use FLAG_AUTO_REQUERY since it is deprecated, so we will end
         // up with an empty list the first time we run.
         mForecastAdapter = new ForecastAdapter(getActivity(), null, 0);
+        mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -191,5 +193,14 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     void onLocationChanged( ) {
         updateWeather();
         getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
+    }
+
+    public void setUseTodayLayout(boolean useTodayLayout){
+        mUseTodayLayout = useTodayLayout;
+        if(mForecastAdapter!=null){
+            mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
+
+        }
+
     }
 }
