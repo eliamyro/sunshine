@@ -16,6 +16,10 @@
         <item name="displayOptions">useLogo|showHome</item>
         <item name="logo">@drawable/ic_logo</item>
     </style>
+
+    <style name="SettingsTheme" parent="AppTheme">
+
+    </style>
     <style name="ForecastListStyle">
 
     </style>
