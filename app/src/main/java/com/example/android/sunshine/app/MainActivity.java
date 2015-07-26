@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 
 
@@ -62,26 +63,13 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
             return true;
-        } else if (id == R.id.action_show_in_map) {
-            openPreferredLocationInMap();
         }
 
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void openPreferredLocationInMap() {
 
-        String location = Utility.getPreferredLocation(this);
-        Uri geolocation = Uri.parse("geo:0,0?").buildUpon()
-                .appendQueryParameter("q", location).build();
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW);
-        mapIntent.setData(geolocation);
-        if (mapIntent.resolveActivity(getPackageManager()) != null)
-            startActivity(mapIntent);
-
-
-    }
 
     @Override
     protected void onResume() {

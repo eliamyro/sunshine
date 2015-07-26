@@ -1,5 +1,6 @@
 package com.example.android.sunshine.app;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -139,9 +140,12 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_refresh) {
-            updateWeather();
-            return true;
+//        if (id == R.id.action_refresh) {
+//            updateWeather();
+//            return true;
+//        }else
+        if (id == R.id.action_show_in_map) {
+            openPreferredLocationInMap();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -155,11 +159,24 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateWeather() {
-        //String location = Utility.getPreferredLocation(getActivity());
-        //new FetchWeatherTask(getActivity()).execute(location);
         SunshineSyncAdapter.syncImmediately(getActivity());
     }
 
+    private void openPreferredLocationInMap() {
+        if(mForecastAdapter!=null){
+            Cursor c = mForecastAdapter.getCursor();
+            if(c!=null){
+                c.moveToPosition(0);
+                String posLat = c.getString(COL_COORD_LAT);
+                String posLon = c.getString(COL_COORD_LONG);
+                Uri geolocation = Uri.parse("geo:" + posLat + "," + posLon);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW);
+                mapIntent.setData(geolocation);
+                if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null)
+                    startActivity(mapIntent);
+            }
+        }
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
