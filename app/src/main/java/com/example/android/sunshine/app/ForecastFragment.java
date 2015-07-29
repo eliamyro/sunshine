@@ -1,9 +1,11 @@
 package com.example.android.sunshine.app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -25,7 +27,7 @@ import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
 
 
     private static final String SELECTED_KEY = "selected_key";
@@ -64,6 +66,14 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     private int mPosition;
     private ListView mListView;
     private boolean mUseTodayLayout;
+    SharedPreferences.OnSharedPreferenceChangeListener listener;
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.pref_location_status_key)))
+            updateEmptyView();
+    }
+
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -78,6 +88,20 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     public ForecastFragment() {
+    }
+
+    @Override
+    public void onResume() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        pref.registerOnSharedPreferenceChangeListener(listener);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        pref.unregisterOnSharedPreferenceChangeListener(listener);
+        super.onPause();
     }
 
     @Override
@@ -206,17 +230,31 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateEmptyView() {
+
+
         if (mForecastAdapter.getCount() == 0) {
             TextView tv = (TextView) getView().findViewById(R.id.listview_forecast_empty);
 
             if (null != tv) {
                 int message = R.string.empty_forecast_list;
-                if (!Utility.isNetworkAvailable(getActivity())) {
-                    message = R.string.empty_forecast_list_no_network;
+                @SunshineSyncAdapter.LocationStatus int locationStatus = Utility.getLocationStatus(getActivity());
+
+                switch (locationStatus) {
+                    case SunshineSyncAdapter.LOCATION_STATUS_SERVER_DOWN:
+                        message = R.string.empty_forecast_list_server_down;
+                        break;
+
+                    case SunshineSyncAdapter.LOCATION_STATUS_SERVER_INVALID:
+                        message = R.string.empty_forecast_list_server_error;
+                        break;
+
+                    default:
+                        if (Utility.isNetworkAvailable(getActivity())) {
+                            message = R.string.empty_forecast_list_no_network;
+                        }
                 }
                 tv.setText(message);
             }
-
         }
     }
 
@@ -224,6 +262,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     public void onLoaderReset(Loader<Cursor> loader) {
         mForecastAdapter.swapCursor(null);
     }
+
 
     // since we read the location when we create the loader, all we need to do is restart things
     void onLocationChanged() {
