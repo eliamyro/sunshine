@@ -249,7 +249,14 @@ public class Utility {
     static public @SunshineSyncAdapter.LocationStatus
     int getLocationStatus(Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getInt(context.getString(R.string.pref_location_key), SunshineSyncAdapter.LOCATION_STATUS_SERVER_UNKNOWN);
+        return prefs.getInt(context.getString(R.string.pref_location_status_key), SunshineSyncAdapter.LOCATION_STATUS_UNKNOWN);
 
+    }
+
+    static void resetLocationStatus(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(context.getString(R.string.pref_location_status_key), SunshineSyncAdapter.LOCATION_STATUS_UNKNOWN);
+        editor.apply();
     }
 }
