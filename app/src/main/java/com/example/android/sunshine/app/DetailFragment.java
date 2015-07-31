@@ -161,9 +161,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             // Read description from cursor and update view
             String weatherDescription = data.getString(COL_WEATHER_DESC);
             mForecastView.setText(weatherDescription);
+            mForecastView.setContentDescription(getString(R.string.a11y_forecast,weatherDescription));
 
             // Set content description to weather icon for accessibility.
-            mIconView.setContentDescription(weatherDescription);
+            mIconView.setContentDescription(getString(R.string.a11y_forecast_icon, weatherDescription));
 
             // Read high temperature from cursor and update view
             boolean isMetric = Utility.isMetric(getActivity());
@@ -171,23 +172,30 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             String highStr = Utility.formatTemperature(getActivity(), high, isMetric);
             mHighView.setText(highStr);
 
+            mHighView.setContentDescription(getString(R.string.a11y_high_temp, highStr));
+
             // Read low temperature from cursor and update view
             double low = data.getDouble(COL_WEATHER_MIN_TEMP);
             String lowStr = Utility.formatTemperature(getActivity(), low, isMetric);
             mLowView.setText(lowStr);
 
+            mLowView.setContentDescription(getString(R.string.a11y_low_temp, lowStr));
+
             // Read humidity from cursor and update view
             float humidity = data.getFloat(COL_WEATHER_HUMIDITY);
             mHumidityView.setText(getActivity().getString(R.string.format_humidity, humidity));
+            mHumidityView.setContentDescription(mHumidityView.getText());
 
             // Read wind speed and direction from cursor and update view
             float wind = data.getFloat(COL_WEATHER_WIND_SPEED);
             float windDirection = data.getFloat(COL_WEATHER_DEGREES);
             mWindView.setText(Utility.getFormattedWind(getActivity(), wind, windDirection));
+            mWindView.setContentDescription(mWindView.getText());
 
             // Read pressure from cursor and update view
             float pressure = data.getFloat(COL_WEATHER_PRESSURE);
             mPressureView.setText(getActivity().getString(R.string.format_pressure, pressure));
+            mPressureView.setContentDescription(mPressureView.getText());
 
 
             // We still need this for the share intent
