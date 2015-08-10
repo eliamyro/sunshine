@@ -7,8 +7,8 @@
         android:inputType="text"
         android:key="@string/pref_location_key"
         android:singleLine="true"
-        custom:minLength="2"
-        android:title="@string/pref_location_label" />
+        android:title="@string/pref_location_label"
+        custom:minLength="2" />
 
     <ListPreference
         android:defaultValue="@string/pref_units_metric"
@@ -17,11 +17,18 @@
         android:key="@string/pref_units_key"
         android:title="@string/pref_units_label" />
 
+    <ListPreference
+        android:defaultValue="@string/pref_art_pack_sunshine"
+        android:entries="@array/pref_art_pack_options"
+        android:entryValues="@array/pref_art_pack_values"
+        android:key="@string/pref_art_pack_key"
+        android:title="@string/pref_art_pack_label" />
+
     <CheckBoxPreference
-        android:title="@string/pref_enable_notifications_label"
         android:defaultValue="@string/pref_enable_notifications_default"
+        android:key="@string/pref_enable_notifications_key"
         android:summaryOff="@string/pref_enable_notifications_false"
         android:summaryOn="@string/pref_enable_notifications_true"
-        android:key="@string/pref_enable_notifications_key" />
+        android:title="@string/pref_enable_notifications_label" />
 
 </PreferenceScreen>

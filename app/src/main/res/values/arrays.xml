@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Names of the art packs available -->
+    <string-array name="pref_art_pack_options">
+        <item>@string/pref_art_pack_label_sunshine</item>
+        <item>@string/pref_art_pack_label_modern</item>
+    </string-array>
+
+    <!-- Format for retrieving art from an external source [CHAR LIMIT=NONE] -->
+    <string-array name="pref_art_pack_values">
+        <item>@string/pref_art_pack_sunshine</item>
+        <item>@string/pref_art_pack_modern</item>
+    </string-array>
+
+</resources>
