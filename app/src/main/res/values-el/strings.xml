@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sunshine</string>
+    <string name="action_settings">Ρυθμίσεις</string>
+    <string name="format_pressure">Ατμοσφαιρική πίεση</string>
+    <string name="map_string">Χάρτης</string>
+    <string name="pref_enable_notifications_false">Μη ενργές</string>
+    <string name="pref_enable_notifications_label">Ειδοποιήσεις</string>
+    <string name="title_activity_settings">Ρυθμίσεις</string>
+    <string name="today">Σήμερα</string>
+    <string name="tomorrow">Αύριο</string>
+    <string name="pref_location_label">Τοποθεσία</string>
+    <string name="action_refresh">Ανανέωση</string>
+    <string name="empty_forecast_list">Δεν υπάρχουν διαθέσιμες πληροφορίες καιρού.</string>
+    <string name="empty_forecast_list_invalid_location">Δεν υπάρχουν διαθέσιμες πληροφορίες καιρού. Η τοποθεσία στις Ρυθμίσεις δεν αναγνωρίζεται από τον server.</string>
+    <string name="empty_forecast_list_no_network">Δεν υπάρχουν διαθέσιμες πληροφορίες καιρού. Το δίκτυο δεν είναι διαθέσιμο για να κατεβάσει τα καιρικά δεδομένα.</string>
+    <string name="empty_forecast_list_server_down">Δεν υπάρχουν διαθέσιμες πληροφορίες καιρού. Ο server δεν επιστρέφει δεδομένα.</string>
+    <string name="empty_forecast_list_server_error">Δεν υπάρχουν διαθέσιμες πληροφορίες καιρού. Ο server δεν επιστρέφει έγκυρα δεδομένα. Παρακαλώ ελεγξτε αν υπάρχει πιο πρόσφατη έκδοση του Sunshine.</string>
+    <string name="format_notification" translatable="false"></string>
+    <string name="pref_enable_notifications_true">Ενεργές</string>
+</resources>
