@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string-array name="temp_units">
+        <item>@string/pref_units_metric</item>
+        <item>@string/pref_units_imperial</item>
+    </string-array>
+
+    <string-array name="temp_units_values">
+        <item>"Metric"</item>
+        <item>"Imperial"</item>
+    </string-array>
+
     <!-- Names of the art packs available -->
     <string-array name="pref_art_pack_options">
         <item>@string/pref_art_pack_label_sunshine</item>

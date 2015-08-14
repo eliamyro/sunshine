@@ -53,22 +53,6 @@
     <!-- Humidity format CHAR LIMIT=25]-->
     <string name="format_humidity" translatable="false">Humidity: <xliff:g id="humidity">%1.0f</xliff:g> %%</string>
 
-    <string-array name="temp_units">
-        <item>@string/pref_units_metric</item>
-        <item>@string/pref_units_imperial</item>
-    </string-array>
-
-    <string-array name="temp_units_values">
-        <item>"Metric"</item>
-        <item>"Imperial"</item>
-    </string-array>
-
-    <string-array name="icon_packs">
-        <item></item>
-        <item></item>
-    </string-array>
-
-
     <!-- Notification Format -->
     <string name="format_notification" translatable="false">
     Forecast: <xliff:g id="condition">%1$s</xliff:g> High: <xliff:g id="high">%2$s</xliff:g> Low: <xliff:g id="low">%3$s</xliff:g>
