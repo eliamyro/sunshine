@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/touch_selector">
+    android:background="@drawable/touch_selector"
+    android:paddingStart="@dimen/list_item_extra_padding"
+    android:paddingLeft="@dimen/list_item_extra_padding"
+    android:paddingEnd="@dimen/list_item_extra_padding"
+    android:paddingRight="@dimen/list_item_extra_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,9 +26,7 @@
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/abc_list_item_padding_horizontal_material"
             android:layout_marginRight="@dimen/abc_list_item_padding_horizontal_material"
-            android:adjustViewBounds="true"
             tools:src="@drawable/art_clouds" />
-
 
         <LinearLayout
             android:layout_width="0dp"
@@ -58,6 +60,7 @@
             android:layout_marginRight="@dimen/forecast_temperature_space"
             android:layout_marginEnd="@dimen/forecast_temperature_space"
             android:textColor="@color/primary_text"
+            android:fontFamily="sans-serif-light"
             android:textSize="@dimen/forecast_text_size"
             tools:text="36" />
 
@@ -69,6 +72,7 @@
             android:gravity="right"
             android:textColor="@color/forecast_low_text"
             android:textSize="@dimen/forecast_text_size"
+            android:fontFamily="sans-serif-light"
             tools:text="5" />
 
     </LinearLayout>

@@ -8,9 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,7 +33,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private String mForecastStr;
     private static final int DETAIL_LOADER = 0;
     static final String DETAIL_URI = "URI";
-    private ShareActionProvider mShareActionProvider;
 
     private static final String[] DETAIL_COLUMNS = {
             // In this case the id needs to be fully qualified with a table name, since
@@ -95,7 +92,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             mUri = arguments.getParcelable(DetailFragment.DETAIL_URI);
         }
 
-        View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_detail_start, container, false);
 
         mIconView = (ImageView) rootView.findViewById(R.id.detail_icon);
         mDateView = (TextView) rootView.findViewById(R.id.detail_date_textview);
@@ -141,9 +138,12 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        if (mUri != null)
+        if (mUri != null){
+            // Now create and return a CursorLoader that will take care of
+            // creating a Cursor for the data being displayed.
             return new CursorLoader(getActivity(), mUri, DETAIL_COLUMNS, null, null, null);
-
+        }
+        getView().setVisibility(View.INVISIBLE);
         return null;
 
     }
@@ -161,6 +161,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data != null && data.moveToFirst()) {
+            getView().setVisibility(View.VISIBLE);
 
             // Read weather condition id from cursor.
             int weatherId = data.getInt(COL_WEATHER_CONDITION_ID);
@@ -226,10 +227,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
             // We still need this for the share intent
             mForecastStr = String.format("%s - %s - %s/%s", date, description, high, low);
-
-            if (mShareActionProvider != null) {
-                mShareActionProvider.setShareIntent(createShareForecastIntent());
-            }
         }
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();

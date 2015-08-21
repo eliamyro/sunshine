@@ -31,7 +31,7 @@
 
 
         <android.support.v7.widget.GridLayout
-            android:id="@+id/detail_additional_page"
+            android:id="@+id/detail_additional_pane"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@color/detail_accent_pane_background"
@@ -59,9 +59,8 @@
                 android:fontFamily="sans-serif"
                 android:gravity="center_vertical"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 tools:text="38%" />
-
 
             <TextView
                 android:id="@+id/detail_pressure_label_textview"
@@ -75,12 +74,13 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/detail_accent_label" />
 
+
             <TextView
                 android:id="@+id/detail_pressure_textview"
                 android:fontFamily="sans-serif"
                 android:gravity="center_vertical"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 tools:text="995 hPa" />
 
             <TextView
@@ -99,7 +99,7 @@
                 android:fontFamily="sans-serif"
                 android:gravity="center_vertical"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 tools:text="4km/h NW" />
 
             <android.support.v7.widget.Space
