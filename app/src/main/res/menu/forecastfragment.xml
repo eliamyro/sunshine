@@ -7,7 +7,7 @@
         <!--android:title="@string/action_refresh" />-->
 
     <item
-        android:id="@+id/action_show_in_map"
+        android:id="@+id/action_map"
         android:title="@string/map_string"
         app:showAsAction="never" />
 

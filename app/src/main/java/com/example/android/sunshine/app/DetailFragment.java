@@ -200,15 +200,15 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             mIconView.setContentDescription(getString(R.string.a11y_forecast_icon, description));
 
             // Read high temperature from cursor and update view
-            boolean isMetric = Utility.isMetric(getActivity());
+           // boolean isMetric = Utility.isMetric(getActivity());
             double high = data.getDouble(COL_WEATHER_MAX_TEMP);
-            String highString = Utility.formatTemperature(getActivity(), high, isMetric);
+            String highString = Utility.formatTemperature(getActivity(), high);
             mHighTempView.setText(highString);
             mHighTempView.setContentDescription(getString(R.string.a11y_high_temp, highString));
 
             // Read low temperature from cursor and update view
             double low = data.getDouble(COL_WEATHER_MIN_TEMP);
-            String lowString = Utility.formatTemperature(getActivity(), low, isMetric);
+            String lowString = Utility.formatTemperature(getActivity(), low);
             mLowTempView.setText(lowString);
             mLowTempView.setContentDescription(getString(R.string.a11y_low_temp, lowString));
 

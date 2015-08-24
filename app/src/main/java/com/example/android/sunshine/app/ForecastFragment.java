@@ -40,7 +40,7 @@ import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 
 /**
- * Encapsulates fetching the forecast and displaying it as a {@link RecyclerView} layout.
+ * Encapsulates fetching the forecast and displaying it as a {@link android.support.v7.widget.RecyclerView} layout.
  */
 public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String LOG_TAG = ForecastFragment.class.getSimpleName();
@@ -136,7 +136,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 //            updateWeather();
 //            return true;
 //        }
-        if (id == R.id.action_show_in_map) {
+        if (id == R.id.action_map) {
             openPreferredLocationInMap();
             return true;
         }
@@ -147,6 +147,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -167,7 +168,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             @Override
             public void onClick(Long date, ForecastAdapter.ForecastAdapterViewHolder vh) {
                 String locationSetting = Utility.getPreferredLocation(getActivity());
-                ((Callback)getActivity()).onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(locationSetting, date));
+                ((Callback) getActivity())
+                        .onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
+                                        locationSetting, date)
+                        );
                 mPosition = vh.getAdapterPosition();
             }
         }, emptyView);
@@ -181,7 +185,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         // or magically appeared to take advantage of room, but data or place in the app was never
         // actually *lost*.
         if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
-            // The recyclerview probably hasn't even been populated yet.  Actually perform the
+            // The Recycler View probably hasn't even been populated yet.  Actually perform the
             // swapout in onLoadFinished.
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
         }
@@ -230,7 +234,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onSaveInstanceState(Bundle outState) {
         // When tablets rotate, the currently selected list item needs to be saved.
-        // When no item is selected, mPosition will be set to Recyclerview.INVALID_POSITION,
+        // When no item is selected, mPosition will be set to RecyclerView.NO_POSITION,
         // so check for that before storing.
         if (mPosition != RecyclerView.NO_POSITION) {
             outState.putInt(SELECTED_KEY, mPosition);
@@ -289,9 +293,9 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         use to determine why they aren't seeing weather.
      */
     private void updateEmptyView() {
-        if (mForecastAdapter.getItemCount() == 0) {
+        if ( mForecastAdapter.getItemCount() == 0 ) {
             TextView tv = (TextView) getView().findViewById(R.id.recyclerview_forecast_empty);
-            if (null != tv) {
+            if ( null != tv ) {
                 // if cursor is empty, why? do we have an invalid location
                 int message = R.string.empty_forecast_list;
                 @SunshineSyncAdapter.LocationStatus int location = Utility.getLocationStatus(getActivity());
@@ -321,5 +325,4 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             updateEmptyView();
         }
     }
-
 }
