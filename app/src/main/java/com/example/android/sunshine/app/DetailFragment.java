@@ -35,6 +35,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private String mForecastStr;
     private static final int DETAIL_LOADER = 0;
     static final String DETAIL_URI = "URI";
+    static final String DETAIL_TRANSITION_ANIMATION = "DTA";
 
     private static final String[] DETAIL_COLUMNS = {
             // In this case the id needs to be fully qualified with a table name, since
@@ -80,6 +81,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private TextView mPressureView;
     private TextView mPressureLabelView;
     private Uri mUri;
+    private boolean mTransitionAnimation;
 
     public DetailFragment() {
         setHasOptionsMenu(true);
@@ -92,6 +94,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         Bundle arguments = getArguments();
         if (arguments != null) {
             mUri = arguments.getParcelable(DetailFragment.DETAIL_URI);
+            mTransitionAnimation = arguments.getBoolean(DetailFragment.DETAIL_TRANSITION_ANIMATION, false);
         }
 
         View rootView = inflater.inflate(R.layout.fragment_detail_start, container, false);
@@ -146,8 +149,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             return new CursorLoader(getActivity(), mUri, DETAIL_COLUMNS, null, null, null);
         }
         ViewParent vp = getView().getParent();
-        if (vp instanceof CardView){
-            ((View)vp).setVisibility(View.INVISIBLE);
+        if (vp instanceof CardView) {
+            ((View) vp).setVisibility(View.INVISIBLE);
         }
         return null;
 
@@ -200,7 +203,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             mIconView.setContentDescription(getString(R.string.a11y_forecast_icon, description));
 
             // Read high temperature from cursor and update view
-           // boolean isMetric = Utility.isMetric(getActivity());
+            // boolean isMetric = Utility.isMetric(getActivity());
             double high = data.getDouble(COL_WEATHER_MAX_TEMP);
             String highString = Utility.formatTemperature(getActivity(), high);
             mHighTempView.setText(highString);
@@ -240,7 +243,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         Toolbar toolbarView = (Toolbar) getView().findViewById(R.id.toolbar);
 
         // We need to start the enter transition after the data has loaded
-        if (getActivity() instanceof DetailActivity) {
+        if (mTransitionAnimation) {
             activity.supportStartPostponedEnterTransition();
 
             if (null != toolbarView) {
@@ -259,6 +262,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
             }
         }
+
 
     }
 
