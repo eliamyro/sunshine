@@ -11,14 +11,14 @@
         android:layout_height="match_parent"
         android:padding="4dp"
         android:orientation="vertical"
-        android:background="@drawable/today_touch_selector">
+        android:background="@drawable/touch_selector_white">
 
         <ImageView
             android:id="@+id/widget_icon"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
             tools:src="@drawable/art_fog"/>
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_text"
             tools:text="24"/>
     </LinearLayout>
 
